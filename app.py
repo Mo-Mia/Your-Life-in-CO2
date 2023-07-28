@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
@@ -99,3 +100,14 @@ st.write("""
 - **Idea Credit**: This app was inspired by a concept from Sultan Uzan.
 """)
 
+# Your chatbot script
+html_string = """
+<script>
+window.codySettings = { widget_id: '99c02ebd-f2ec-4352-94c9-2322adf327fd' };
+
+!function(){var t=window,e=document,a=function(){var t=e.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://trinketsofcody.com/cody-widget.js";var a=e.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)};"complete"===document.readyState?a():t.attachEvent?t.attachEvent("onload",a):t.addEventListener("load",a,!1)}();
+</script>
+"""
+
+# Use the components.html function
+components.html(html_string, height=600)
