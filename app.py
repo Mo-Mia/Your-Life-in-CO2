@@ -22,20 +22,25 @@ Enter your birth date to explore historical CO2 concentration trends and underst
 with st.spinner('Loading data...'):
     data = pd.read_csv('cleaned_daily_in_situ_co2_mlo.csv', parse_dates=['Date'], index_col='Date')
 
+# Clean the data
+data['CO2_ppm'] = pd.to_numeric(data['CO2_ppm'], errors='coerce')
+data = data.dropna(subset=['CO2_ppm'])
+
 # Ask the user for their birth date
 date_input = st.text_input("Enter your birth date (YYYY-MM-DD, YYYYMMDD, or YYMMDD)")
 
 # Validate date input and convert to datetime
-try:
-    if len(date_input) == 8: # if date format is YYYYMMDD
-        birth_date = datetime.strptime(date_input, "%Y%m%d")
-    elif len(date_input) == 6: # if date format is YYMMDD
-        birth_date = datetime.strptime(date_input, "%y%m%d")
-    else: # if date format is YYYY-MM-DD
-        birth_date = datetime.strptime(date_input, "%Y-%m-%d")
-except ValueError:
-    st.error('Invalid date format. Please enter your birth date as YYYY-MM-DD, YYYYMMDD, or YYMMDD.')
-    birth_date = None
+birth_date = None
+if date_input:
+    try:
+        if len(date_input) == 8: # if date format is YYYYMMDD
+            birth_date = datetime.strptime(date_input, "%Y%m%d")
+        elif len(date_input) == 6: # if date format is YYMMDD
+            birth_date = datetime.strptime(date_input, "%y%m%d")
+        else: # if date format is YYYY-MM-DD
+            birth_date = datetime.strptime(date_input, "%Y-%m-%d")
+    except ValueError:
+        st.error('Invalid date format. Please enter your birth date as YYYY-MM-DD, YYYYMMDD, or YYMMDD.')
 
 # Make sure a birth date is submitted before displaying the data
 if birth_date is not None:
@@ -101,7 +106,7 @@ if birth_date is not None:
             st.plotly_chart(fig)
         else:
             st.error('No data available for your birth year.')
-            
+
 # Credits section
 st.header('🙏 Credits and Acknowledgements 🙏')
 st.write("""
