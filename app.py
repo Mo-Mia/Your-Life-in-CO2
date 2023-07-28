@@ -23,15 +23,18 @@ with st.spinner('Loading data...'):
     data = pd.read_csv('cleaned_daily_in_situ_co2_mlo.csv', parse_dates=['Date'], index_col='Date')
 
 # Ask the user for their birth date
-date_input = st.text_input("Enter your birth date (YYYY-MM-DD or YYYYMMDD)")
+date_input = st.text_input("Enter your birth date (YYYY-MM-DD, YYYYMMDD, or YYMMDD)")
 
 # Validate date input and convert to datetime
 try:
     if len(date_input) == 8: # if date format is YYYYMMDD
         birth_date = datetime.strptime(date_input, "%Y%m%d")
+    elif len(date_input) == 6: # if date format is YYMMDD
+        birth_date = datetime.strptime(date_input, "%y%m%d")
     else: # if date format is YYYY-MM-DD
         birth_date = datetime.strptime(date_input, "%Y-%m-%d")
 except ValueError:
+    st.error('Invalid date format. Please enter your birth date as YYYY-MM-DD, YYYYMMDD, or YYMMDD.')
     birth_date = None
 
 # Make sure a birth date is submitted before displaying the data
@@ -91,15 +94,14 @@ if birth_date is not None:
             fig.update_layout(showlegend=False)
             st.plotly_chart(fig)
 
-            # Animated plot
-            st.header('🌡️ Animated CO2 Concentration Over Time 🌡️')
-            st.markdown("This animated plot shows the CO2 concentration over time. Use the play and pause buttons to control the animation.")
-            data.reset_index(inplace=True)
-            fig = px.line(data, x='Date', y='CO2_ppm', animation_frame='Date', 
-                          animation_group='CO2_ppm', range_y=[data['CO2_ppm'].min(), data['CO2_ppm'].max()])
+            # New visualization: Bar chart of average CO2 concentration by year
+            st.header('📊 Average CO2 Concentration by Year 📊')
+            yearly_data = data.resample('Y').mean()
+            fig = px.bar(yearly_data, y='CO2_ppm', labels={'x':'Year', 'y':'Average CO2 concentration (ppm)'})
             st.plotly_chart(fig)
         else:
             st.error('No data available for your birth year.')
+            
 # Credits section
 st.header('🙏 Credits and Acknowledgements 🙏')
 st.write("""
