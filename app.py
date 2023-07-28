@@ -90,6 +90,14 @@ if birth_date is not None:
             fig.add_hline(y=350, line_color='green', line_dash="dash", opacity=0.7)
             fig.update_layout(showlegend=False)
             st.plotly_chart(fig)
+
+            # Animated plot
+            st.header('🌡️ Animated CO2 Concentration Over Time 🌡️')
+            st.markdown("This animated plot shows the CO2 concentration over time. Use the play and pause buttons to control the animation.")
+            data.reset_index(inplace=True)
+            fig = px.line(data, x='Date', y='CO2_ppm', animation_frame='Date', 
+                          animation_group='CO2_ppm', range_y=[data['CO2_ppm'].min(), data['CO2_ppm'].max()])
+            st.plotly_chart(fig)
         else:
             st.error('No data available for your birth year.')
 # Credits section
@@ -97,17 +105,4 @@ st.header('🙏 Credits and Acknowledgements 🙏')
 st.write("""
 - **Data**: The CO2 concentration data is provided by the Global Monitoring Laboratory - Earth System Research Laboratories. The data from March 1958 through April 1974 have been obtained by C. David Keeling of the Scripps Institution of Oceanography (SIO) and were obtained from the Scripps website (scrippsco2.ucsd.edu).
 - **App Developer**: This app was developed by Mo and the team at Project Mohem.
-- **Idea Credit**: This app was inspired by a concept from Sultan Uzan.
-""")
-
-# Your chatbot script
-html_string = """
-<script>
-window.codySettings = { widget_id: '99c02ebd-f2ec-4352-94c9-2322adf327fd' };
-
-!function(){var t=window,e=document,a=function(){var t=e.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://trinketsofcody.com/cody-widget.js";var a=e.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)};"complete"===document.readyState?a():t.attachEvent?t.attachEvent("onload",a):t.addEventListener("load",a,!1)}();
-</script>
-"""
-
-# Use the components.html function
-components.html(html_string, height=600)
+- **Idea Credit**: This app was inspired by a concept
