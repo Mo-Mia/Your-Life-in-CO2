@@ -99,5 +99,3 @@ st.write("""
 - **Idea Credit**: This app was inspired by a concept from Sultan Uzan.
 """)
 
-st.markdown('<iframe src="https://widget.getcody.ai/99c02ebd-f2ec-4352-94c9-2322adf327fd" style="border:0px;" name="codyai" scrolling="no" frameborder="1" marginheight="0" marginwidth="0" height="800px" width="100%" allowfullscreen></iframe>', unsafe_allow_html=True)
-
