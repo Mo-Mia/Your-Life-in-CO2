@@ -105,4 +105,5 @@ st.header('🙏 Credits and Acknowledgements 🙏')
 st.write("""
 - **Data**: The CO2 concentration data is provided by the Global Monitoring Laboratory - Earth System Research Laboratories. The data from March 1958 through April 1974 have been obtained by C. David Keeling of the Scripps Institution of Oceanography (SIO) and were obtained from the Scripps website (scrippsco2.ucsd.edu).
 - **App Developer**: This app was developed by Mo and the team at Project Mohem.
-- **Idea Credit**: This app was inspired by a concept
+- **Idea Credit**: This app was inspired by a concept from Sultan Uzan.
+""")
