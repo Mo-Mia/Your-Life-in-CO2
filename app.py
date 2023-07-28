@@ -99,14 +99,6 @@ if birth_date is not None:
             fig.update_layout(showlegend=False)
             st.plotly_chart(fig)
 
-            # New visualization: Bar chart of average CO2 concentration by year
-            st.header('📊 Average CO2 Concentration by Year 📊')
-            yearly_data = data.resample('Y').mean()
-            fig = px.bar(yearly_data, y='CO2_ppm', labels={'x':'Year', 'y':'Average CO2 concentration (ppm)'})
-            st.plotly_chart(fig)
-        else:
-            st.error('No data available for your birth year.')
-
 # Credits section
 st.header('🙏 Credits and Acknowledgements 🙏')
 st.write("""
