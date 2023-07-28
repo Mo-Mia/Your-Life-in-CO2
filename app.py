@@ -106,3 +106,9 @@ st.write("""
 - **App Developer**: This app was developed by Mo and the team at Project Mohem.
 - **Idea Credit**: This app was inspired by a concept from Sultan Uzan.
 """)
+
+# Add a link to Project Mohem
+st.markdown("[Visit Project Mohem](https://www.projectmohem.co.za)")
+
+# Add the QR code for donations
+st.image("qr.png", caption="If you like this app, scan this QR code to donate to my Toco wallet")
